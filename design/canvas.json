@@ -1,0 +1,21 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-10-12T13:12:00Z" },
+  "title": "Kyra",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": { "x": 0, "y": 0, "w": 390, "h": 844, "title": "Jízda", "is_interactive": true },
+    "Jarvis.dc.html": { "x": 470, "y": 0, "w": 390, "h": 844, "title": "Kyra", "is_interactive": true },
+    "Diagnostika.dc.html": { "x": 940, "y": 0, "w": 390, "h": 844, "title": "Servis · chyby", "is_interactive": true },
+    "Problemy.dc.html": { "x": 1410, "y": 0, "w": 390, "h": 844, "title": "Servis · problémy", "is_interactive": true },
+    "Denik.dc.html": { "x": 1880, "y": 0, "w": 390, "h": 844, "title": "Deník", "is_interactive": true },
+    "Garaz.dc.html": { "x": 2350, "y": 0, "w": 390, "h": 844, "title": "Garáž", "is_interactive": true }
+  },
+  "order": ["Main.dc.html", "Jarvis.dc.html", "Diagnostika.dc.html", "Problemy.dc.html", "Denik.dc.html", "Garaz.dc.html"],
+  "notes": {
+    "t1": { "x": 0, "y": -300, "text": "Kyra · ukázka s Fabií 1.4 MPI", "kind": "title1", "maxW": 2740 },
+    "s1": { "x": 2820, "y": 0, "w": 260, "text": "Všechna čísla jsou ukázková. Fabka mluví po K-line, takže data chodí pomalu a bez teploty oleje a hladiny paliva.", "fill": "teal" }
+  },
+  "designSystems": []
+}

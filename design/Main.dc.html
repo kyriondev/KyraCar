@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<title>Jízda – Kyra</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&family=Cormorant+Garamond:wght@500&display=swap">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;position:relative;display:flex;flex-direction:column;background:#0B0C0B;color:#ECE7DA;font-family:'Manrope',system-ui,sans-serif;overflow:hidden">
+
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:56px 24px 0">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;height:36px">
+      <div style="font-weight:700;font-size:24px;letter-spacing:-0.6px;color:#ECE7DA">Kyra</div>
+      <div style="display:flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:16px;border:1px solid #262A27;background:#141614;font-size:12px;font-weight:600;letter-spacing:0.4px;color:#8C897E">
+        <span style="width:6px;height:6px;border-radius:3px;background:#7FA58A"></span>K-line · připojeno
+      </div>
+    </div>
+
+    <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+      <svg width="300" height="300" viewBox="0 0 300 300" role="img" aria-label="Rychlost 87 kilometrů za hodinu, otáčky 2 840 za minutu" style="display:block">
+        <path d="M59.5 240.5 A128 128 0 1 1 240.5 240.5" fill="none" stroke="#1B1E1B" stroke-width="6" stroke-linecap="round"/>
+        <path d="M59.5 240.5 A128 128 0 0 1 111.4 28.0" fill="none" stroke="#D6B36A" stroke-width="6" stroke-linecap="round"/>
+
+        <text x="150" y="176" text-anchor="middle" font-size="104" font-weight="600" letter-spacing="-3" fill="#F5F1E6" style="font-variant-numeric:tabular-nums">87</text>
+        <text x="150" y="204" text-anchor="middle" font-size="14" font-weight="600" letter-spacing="3" fill="#D6B36A">km/h</text>
+        <text x="150" y="260" text-anchor="middle"><tspan font-size="22" font-weight="300" fill="#ECE7DA">2 840</tspan><tspan dx="6" font-size="12" font-weight="600" fill="#8C897E">ot/min</tspan></text>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+      <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:20px;border:1px solid #262A27;background:#141614">
+        <div style="font-size:11px;font-weight:600;letter-spacing:1.6px;color:#8C897E">CHLADICÍ KAPALINA</div>
+        <div style="font-size:30px;font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums">89<span style="font-size:16px;color:#8C897E;margin-left:3px">°C</span></div>
+        <div style="font-size:12px;font-weight:500;color:#7FA58A">Provozní teplota</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:20px;border:1px solid #262A27;background:#141614">
+        <div style="font-size:11px;font-weight:600;letter-spacing:1.6px;color:#8C897E">ZÁTĚŽ MOTORU</div>
+        <div style="font-size:30px;font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums">34<span style="font-size:16px;color:#8C897E;margin-left:3px">%</span></div>
+        <div style="font-size:12px;font-weight:500;color:#8C897E">Mírná zátěž</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:20px;border:1px solid #262A27;background:#141614">
+        <div style="font-size:11px;font-weight:600;letter-spacing:1.6px;color:#8C897E">NAPĚTÍ</div>
+        <div style="font-size:30px;font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums">14,1<span style="font-size:16px;color:#8C897E;margin-left:3px">V</span></div>
+        <div style="font-size:12px;font-weight:500;color:#7FA58A">Dobíjení v pořádku</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:20px;border:1px solid #262A27;background:#141614">
+        <div style="font-size:11px;font-weight:600;letter-spacing:1.6px;color:#8C897E">NASÁVANÝ VZDUCH</div>
+        <div style="font-size:30px;font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums">31<span style="font-size:16px;color:#8C897E;margin-left:3px">°C</span></div>
+        <div style="font-size:12px;font-weight:500;color:#8C897E">Teplota sání</div>
+      </div>
+    </div>
+
+    <a href="Jarvis.dc.html" aria-label="Otevřít Kyru" style="display:flex;align-items:center;gap:12px;height:60px;box-sizing:border-box;margin:16px 0;padding:0 7px 0 22px;border-radius:30px;border:1px solid #262A27;background:#141614">
+      <span style="flex:1;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:22px;color:#8C897E">Zeptej se Kyry…</span>
+      <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:23px;background:#D6B36A;color:#0B0C0B">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+      </span>
+    </a>
+  </div>
+
+  <nav aria-label="Hlavní navigace" style="display:flex;align-items:flex-start;flex-shrink:0;height:88px;box-sizing:border-box;padding:6px 8px 0;border-top:1px solid #262A27;background:#0B0C0B">
+    <a href="Main.dc.html" aria-current="page" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:56px;color:#D6B36A;font-size:11px;font-weight:600;letter-spacing:0.3px">
+      <span style="width:16px;height:2px;border-radius:1px;background:#D6B36A"></span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 17a8.5 8.5 0 1 1 15 0"/><path d="M12 16.5l3.6-5"/><circle cx="12" cy="16.5" r="1"/></svg>
+      Jízda
+    </a>
+    <a href="Jarvis.dc.html" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:56px;color:#8C897E;font-size:11px;font-weight:600;letter-spacing:0.3px">
+      <span style="width:16px;height:2px;border-radius:1px;background:transparent"></span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+      Kyra
+    </a>
+    <a href="Diagnostika.dc.html" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:56px;color:#8C897E;font-size:11px;font-weight:600;letter-spacing:0.3px">
+      <span style="width:16px;height:2px;border-radius:1px;background:transparent"></span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2.2-6 4 12 2.3-6H21"/></svg>
+      Servis
+    </a>
+    <a href="Denik.dc.html" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:56px;color:#8C897E;font-size:11px;font-weight:600;letter-spacing:0.3px">
+      <span style="width:16px;height:2px;border-radius:1px;background:transparent"></span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2V4z"/><path d="M6 18a2 2 0 0 1 2-2h11"/></svg>
+      Deník
+    </a>
+    <a href="Garaz.dc.html" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:56px;color:#8C897E;font-size:11px;font-weight:600;letter-spacing:0.3px">
+      <span style="width:16px;height:2px;border-radius:1px;background:transparent"></span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 14.5l1.8-5.2A2 2 0 0 1 7.2 8h9.6a2 2 0 0 1 1.9 1.3l1.8 5.2V18h-3v-1.5H6.5V18h-3z"/><circle cx="7.5" cy="13" r="0.8"/><circle cx="16.5" cy="13" r="0.8"/></svg>
+      Garáž
+    </a>
+  </nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

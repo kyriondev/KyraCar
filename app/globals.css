@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Design tokens: values from design/*.dc.html. */
+@theme {
+  --color-bg: #0b0c0b;
+  --color-surface: #141614;
+  --color-surface-2: #1b1e1b;
+  --color-surface-active: #1f231f;
+  --color-line: #262a27;
+  --color-line-gold: #3a3628;
+  --color-line-dashed: #5a5036;
+  --color-ink: #ece7da;
+  --color-ink-strong: #f5f1e6;
+  --color-muted: #8c897e;
+  --color-gold: #d6b36a;
+  --color-green: #7fa58a;
+  --color-warn: #e2634a;
+  --color-warn-bg: #2a1a17;
+  --color-kyra-bg: #101a15;
+  --color-kyra-line: #22352b;
+
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+
+  --tracking-heading: -0.8px;
+  --tracking-label: 1.6px;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+@utility noscroll {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Top padding: 56px on a 390×844 iPhone (status bar + 9px), 24px in a browser. */
+@utility pt-safe-top {
+  padding-top: max(calc(env(safe-area-inset-top) + 9px), 24px);
+}
+
+/* Nav is 88px tall on iPhone: 6 + 56 + (34px home indicator − 8). */
+@utility pb-safe-nav {
+  padding-bottom: max(calc(env(safe-area-inset-bottom) - 8px), 10px);
+}
