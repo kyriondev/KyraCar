@@ -18,6 +18,9 @@
   --color-warn-bg: #2a1a17;
   --color-kyra-bg: #101a15;
   --color-kyra-line: #22352b;
+  --color-plate: #f4f1e8;
+  --color-plate-ink: #141414;
+  --color-plate-eu: #1c3fa3;
 
   --font-sans: var(--font-manrope), system-ui, sans-serif;
   --font-serif: var(--font-cormorant), Georgia, serif;
