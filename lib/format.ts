@@ -7,8 +7,12 @@ const numberFormat = new Intl.NumberFormat("cs-CZ");
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-/** Parses "YYYY-MM-DD" (or a full ISO string) as a local calendar date. */
+/** Parses "YYYY-MM-DD" as a local calendar date; a full ISO timestamp is converted to local time. */
 export function parseLocalDate(iso: string): Date {
+  if (iso.includes("T")) {
+    const local = new Date(iso);
+    return new Date(local.getFullYear(), local.getMonth(), local.getDate());
+  }
   const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
   return new Date(y, m - 1, d);
 }

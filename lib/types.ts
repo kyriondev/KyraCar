@@ -27,6 +27,7 @@ export type Issue = {
   status: "open" | "resolved";
   resolvedAt?: string;
   source: "text" | "voice" | "kyra";
+  kyraNote?: string; // Kyra's short take on the issue
 };
 
 export type ReminderKind = "insurance" | "inspection" | "vignette" | "oil" | "custom";
