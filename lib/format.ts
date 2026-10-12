@@ -40,3 +40,30 @@ export function parseKm(input: string): number | undefined {
   const digits = input.replace(/\D/g, "");
   return digits ? Number(digits) : undefined;
 }
+
+export function formatDecimal(value: number, digits = 1): string {
+  return value.toLocaleString("cs-CZ", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  });
+}
+
+/** "9. 10." */
+export function formatDayMonth(iso: string): string {
+  const d = parseLocalDate(iso);
+  return `${d.getDate()}. ${d.getMonth() + 1}.`;
+}
+
+/** Accepts both "38,4" and "38.4"; empty or invalid input gives undefined. */
+export function parseDecimal(input: string): number | undefined {
+  const normalized = input.replace(/\s/g, "").replace(",", ".");
+  if (!normalized) return undefined;
+  const value = Number(normalized);
+  return Number.isFinite(value) ? value : undefined;
+}
+
+/** Today as YYYY-MM-DD in local time. */
+export function todayIso(now = new Date()): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+}

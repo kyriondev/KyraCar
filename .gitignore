@@ -43,3 +43,6 @@ next-env.d.ts
 
 # local secrets
 api_key.txt
+
+# agent worktrees
+.claude/worktrees/

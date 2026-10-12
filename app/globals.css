@@ -21,6 +21,7 @@
   --color-plate: #f4f1e8;
   --color-plate-ink: #141414;
   --color-plate-eu: #1c3fa3;
+  --color-chart-muted: #4a4330;
 
   --font-sans: var(--font-manrope), system-ui, sans-serif;
   --font-serif: var(--font-cormorant), Georgia, serif;

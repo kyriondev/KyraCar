@@ -1,15 +1,5 @@
-import { EmptyCard, PageBody, PageHeader } from "@/components/page";
+import { LogbookScreen } from "@/components/logbook/logbook-screen";
 
 export default function LogbookPage() {
-  return (
-    <>
-      <PageHeader title="Deník" />
-      <PageBody>
-        <EmptyCard
-          title="Zatím žádné tankování"
-          text="Tady bude spotřeba, náklady za měsíc, graf a údržba."
-        />
-      </PageBody>
-    </>
-  );
+  return <LogbookScreen />;
 }

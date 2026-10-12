@@ -169,3 +169,73 @@ export function updateReminder(id: string, patch: Partial<Omit<Reminder, "id" | 
 export function deleteReminder(id: string) {
   update({ reminders: getState().reminders.filter((r) => r.id !== id) });
 }
+
+// --- Fuel ---
+
+export function selectFuel(s: StoreState, carId: string): FuelEntry[] {
+  return s.fuel.filter((f) => f.carId === carId);
+}
+
+// A newer odometer reading also moves the car's odometer forward.
+function bumpOdometer(cars: Car[], carId: string, odometerKm: number | undefined): Car[] {
+  if (odometerKm === undefined) return cars;
+  return cars.map((car) =>
+    car.id === carId && (car.odometerKm ?? 0) < odometerKm ? { ...car, odometerKm } : car,
+  );
+}
+
+export function addFuelEntry(input: Omit<FuelEntry, "id">): FuelEntry {
+  const entry: FuelEntry = { ...input, id: newId() };
+  const s = getState();
+  update({
+    fuel: [...s.fuel, entry],
+    cars: bumpOdometer(s.cars, entry.carId, entry.odometerKm),
+  });
+  return entry;
+}
+
+export function updateFuelEntry(id: string, patch: Partial<Omit<FuelEntry, "id" | "carId">>) {
+  const s = getState();
+  const fuel = s.fuel.map((f) => (f.id === id ? { ...f, ...patch } : f));
+  const entry = fuel.find((f) => f.id === id);
+  update({ fuel, cars: entry ? bumpOdometer(s.cars, entry.carId, entry.odometerKm) : s.cars });
+}
+
+export function deleteFuelEntry(id: string) {
+  update({ fuel: getState().fuel.filter((f) => f.id !== id) });
+}
+
+// --- Issues ---
+
+export function selectIssues(s: StoreState, carId: string): Issue[] {
+  return s.issues.filter((i) => i.carId === carId);
+}
+
+export function addIssue(input: Omit<Issue, "id" | "createdAt" | "status">): Issue {
+  const issue: Issue = { ...input, id: newId(), createdAt: new Date().toISOString(), status: "open" };
+  const s = getState();
+  update({
+    issues: [...s.issues, issue],
+    cars: bumpOdometer(s.cars, issue.carId, issue.odometerKm),
+  });
+  return issue;
+}
+
+export function updateIssue(id: string, patch: Partial<Omit<Issue, "id" | "carId">>) {
+  update({
+    issues: getState().issues.map((i) => (i.id === id ? { ...i, ...patch } : i)),
+  });
+}
+
+export function setIssueResolved(id: string, resolved: boolean) {
+  updateIssue(
+    id,
+    resolved
+      ? { status: "resolved", resolvedAt: new Date().toISOString() }
+      : { status: "open", resolvedAt: undefined },
+  );
+}
+
+export function deleteIssue(id: string) {
+  update({ issues: getState().issues.filter((i) => i.id !== id) });
+}

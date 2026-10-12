@@ -39,3 +39,30 @@ export function Button({ variant = "primary", className = "", ...props }: Button
     />
   );
 }
+
+export function Toggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}) {
+  return (
+    <label className="flex min-h-12 cursor-pointer items-center justify-between gap-4">
+      <span className="text-[15px] font-semibold">{label}</span>
+      <input
+        type="checkbox"
+        role="switch"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="peer sr-only"
+      />
+      <span
+        aria-hidden="true"
+        className="relative h-7 w-12 shrink-0 rounded-full border border-line bg-surface-2 transition-colors peer-checked:border-gold peer-checked:bg-gold peer-focus-visible:outline-2 peer-focus-visible:outline-gold after:absolute after:top-[3px] after:left-[3px] after:size-5 after:rounded-full after:bg-muted after:transition-transform peer-checked:after:translate-x-5 peer-checked:after:bg-bg"
+      />
+    </label>
+  );
+}
