@@ -1,0 +1,5 @@
+.env*
+!.env.example
+api_key.txt
+.next
+node_modules
