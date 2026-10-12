@@ -8,6 +8,7 @@ import {
   addIssue,
   getState,
   selectActiveCar,
+  selectFaults,
   selectFuel,
   selectIssues,
   selectReminders,
@@ -176,6 +177,24 @@ const handlers: Record<ToolName, (args: Args) => ToolOutcome> = {
         detail: reminderDetail(r),
       })),
       source: "připomínky",
+    };
+  },
+
+  get_fault_codes() {
+    const s = getState();
+    const car = selectActiveCar(s);
+    if (!car) return NO_CAR;
+    return {
+      result: selectFaults(s, car.id).map((f) => ({
+        code: f.code,
+        title: f.title ?? null,
+        severity: f.severity ?? null,
+        explanation: f.explanation ?? null,
+        checks: f.checks ?? [],
+        source: f.source,
+        added: f.createdAt.slice(0, 10),
+      })),
+      source: "chyby z auta",
     };
   },
 };

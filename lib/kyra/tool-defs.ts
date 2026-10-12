@@ -8,7 +8,8 @@ export type ToolName =
   | "list_issues"
   | "add_issue"
   | "resolve_issue"
-  | "get_reminders";
+  | "get_reminders"
+  | "get_fault_codes";
 
 type ToolDef = {
   type: "function";
@@ -107,6 +108,15 @@ export const TOOL_DEFS: ToolDef[] = [
     function: {
       name: "get_reminders",
       description: "Připomínky aktivního auta (pojištění, STK, dálniční známka, olej, vlastní) a kolik zbývá.",
+      parameters: noParams,
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_fault_codes",
+      description:
+        "Chybové kódy aktivního auta (zadané ručně nebo přečtené z auta) s vysvětlením a závažností, pokud už je má.",
       parameters: noParams,
     },
   },

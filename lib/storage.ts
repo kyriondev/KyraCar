@@ -2,7 +2,7 @@
 // the exported functions are the seam for swapping in a real backend later.
 
 import { defaultReminders } from "./reminders";
-import type { Car, FuelEntry, Issue, Reminder } from "./types";
+import type { Car, FaultCode, FuelEntry, Issue, Reminder } from "./types";
 
 export type StoreState = {
   ready: boolean; // false on the server and before the first client read
@@ -10,6 +10,7 @@ export type StoreState = {
   reminders: Reminder[];
   fuel: FuelEntry[];
   issues: Issue[];
+  faults: FaultCode[];
   activeCarId: string | null;
 };
 
@@ -20,6 +21,7 @@ const KEYS: Record<PersistedKey, string> = {
   reminders: "kyra.v1.reminders",
   fuel: "kyra.v1.fuel",
   issues: "kyra.v1.issues",
+  faults: "kyra.v1.faults",
   activeCarId: "kyra.v1.activeCarId",
 };
 
@@ -29,6 +31,7 @@ const EMPTY: StoreState = {
   reminders: [],
   fuel: [],
   issues: [],
+  faults: [],
   activeCarId: null,
 };
 
@@ -59,6 +62,7 @@ function load(): StoreState {
     reminders: read(KEYS.reminders, []),
     fuel: read(KEYS.fuel, []),
     issues: read(KEYS.issues, []),
+    faults: read(KEYS.faults, []),
     activeCarId: read(KEYS.activeCarId, null),
   };
 }
@@ -144,6 +148,7 @@ export function deleteCar(id: string) {
     reminders: s.reminders.filter((r) => r.carId !== id),
     fuel: s.fuel.filter((f) => f.carId !== id),
     issues: s.issues.filter((i) => i.carId !== id),
+    faults: s.faults.filter((f) => f.carId !== id),
     activeCarId: s.activeCarId === id ? (cars[0]?.id ?? null) : s.activeCarId,
   });
 }
@@ -238,4 +243,26 @@ export function setIssueResolved(id: string, resolved: boolean) {
 
 export function deleteIssue(id: string) {
   update({ issues: getState().issues.filter((i) => i.id !== id) });
+}
+
+// --- Fault codes ---
+
+export function selectFaults(s: StoreState, carId: string): FaultCode[] {
+  return s.faults.filter((f) => f.carId === carId);
+}
+
+export function addFaultCode(input: Omit<FaultCode, "id" | "createdAt">): FaultCode {
+  const fault: FaultCode = { ...input, id: newId(), createdAt: new Date().toISOString() };
+  update({ faults: [...getState().faults, fault] });
+  return fault;
+}
+
+export function updateFaultCode(id: string, patch: Partial<Omit<FaultCode, "id" | "carId">>) {
+  update({
+    faults: getState().faults.map((f) => (f.id === id ? { ...f, ...patch } : f)),
+  });
+}
+
+export function deleteFaultCode(id: string) {
+  update({ faults: getState().faults.filter((f) => f.id !== id) });
 }

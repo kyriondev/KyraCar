@@ -41,3 +41,18 @@ export type Reminder = {
   dueKm?: number;
   note?: string; // e.g. insurer name
 };
+
+export type FaultSeverity = "low" | "medium" | "high";
+
+export type FaultCode = {
+  id: string;
+  carId: string;
+  code: string; // "P0171" or a 5-digit VAG code
+  createdAt: string; // ISO
+  source: "manual" | "obd";
+  // Filled in by Kyra's explanation:
+  title?: string;
+  severity?: FaultSeverity;
+  explanation?: string;
+  checks?: string[];
+};

@@ -55,7 +55,7 @@ export function formatDecimal(value: number, digits = 1): string {
 /** "9. 10." */
 export function formatDayMonth(iso: string): string {
   const d = parseLocalDate(iso);
-  return `${d.getDate()}. ${d.getMonth() + 1}.`;
+  return `${d.getDate()}. ${d.getMonth() + 1}.`; // no break inside the date
 }
 
 /** Accepts both "38,4" and "38.4"; empty or invalid input gives undefined. */
