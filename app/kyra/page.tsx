@@ -1,15 +1,5 @@
-import { EmptyCard, PageBody, PageHeader } from "@/components/page";
+import { KyraScreen } from "@/components/kyra/kyra-screen";
 
 export default function KyraPage() {
-  return (
-    <>
-      <PageHeader title="Kyra" />
-      <PageBody>
-        <EmptyCard
-          title="Asistentka se připravuje"
-          text="Chat, hlasový vstup a zápis do deníku přijdou v dalších krocích."
-        />
-      </PageBody>
-    </>
-  );
+  return <KyraScreen />;
 }

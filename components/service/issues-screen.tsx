@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useMemo, useState, type FormEvent } from "react";
-import { ArrowUpIcon } from "@/components/icons";
+import { ArrowUpIcon, MicIcon } from "@/components/icons";
 import { EmptyCard, PageBody, SectionLabel } from "@/components/page";
 import { formatDayMonth, formatNumber } from "@/lib/format";
 import { addIssue, selectActiveCar, selectIssues } from "@/lib/storage";
+import { transcribe } from "@/lib/kyra/voice";
 import type { Issue } from "@/lib/types";
+import { useRecorder } from "@/lib/use-recorder";
 import { useStore } from "@/lib/use-store";
 import { IssueSheet } from "./issue-sheet";
 
@@ -17,6 +19,10 @@ export function IssuesScreen() {
   const car = selectActiveCar(state);
   const [draft, setDraft] = useState("");
   const [editing, setEditing] = useState<Issue | null>(null);
+  const recorder = useRecorder();
+  const [transcribing, setTranscribing] = useState(false);
+  const [voiceError, setVoiceError] = useState<string | null>(null);
+  const recording = recorder.status === "recording";
 
   const { open, resolved } = useMemo(() => {
     const all = car ? selectIssues(state, car.id) : [];
@@ -33,10 +39,42 @@ export function IssuesScreen() {
   function submit(event: FormEvent) {
     event.preventDefault();
     const title = draft.trim();
-    if (!car || !title) return;
+    if (!car) return;
+    if (!title) {
+      void toggleVoice();
+      return;
+    }
     addIssue({ carId: car.id, title, odometerKm: car.odometerKm, source: "text" });
     setDraft("");
   }
+
+  // Empty field + button = dictate; the transcript becomes the issue title.
+  async function toggleVoice() {
+    if (!car) return;
+    setVoiceError(null);
+    if (!recording) {
+      try {
+        await recorder.start();
+      } catch (error) {
+        setVoiceError((error as Error).message);
+      }
+      return;
+    }
+    const audio = await recorder.stop();
+    if (!audio) return;
+    setTranscribing(true);
+    try {
+      const title = (await transcribe(audio)).trim();
+      if (title) addIssue({ carId: car.id, title, odometerKm: car.odometerKm, source: "voice" });
+      else setVoiceError("Nic jsem neslyšela. Zkus to znovu.");
+    } catch (error) {
+      setVoiceError((error as Error).message);
+    } finally {
+      setTranscribing(false);
+    }
+  }
+
+  const hasDraft = draft.trim().length > 0;
 
   return (
     <>
@@ -78,23 +116,40 @@ export function IssuesScreen() {
 
       {car && (
         <form onSubmit={submit} className="shrink-0 px-6 pt-2 pb-3">
+          {voiceError && (
+            <p role="status" className="mb-2 px-1 text-xs font-medium text-warn">
+              {voiceError}
+            </p>
+          )}
           <div className="flex h-14 items-center gap-2.5 rounded-[28px] border border-line bg-surface pr-1.5 pl-5 focus-within:border-gold">
             <input
               type="text"
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               aria-label="Popsat problém s autem"
-              placeholder="Co se děje s autem?"
+              placeholder={
+                recording ? "Poslouchám…" : transcribing ? "Přepisuju…" : "Co se děje s autem?"
+              }
+              disabled={recording || transcribing}
               enterKeyHint="send"
               className="h-11 min-w-0 flex-1 bg-transparent font-serif text-[22px] font-medium text-ink placeholder:text-muted focus:outline-none"
             />
             <button
               type="submit"
-              aria-label="Zapsat problém"
-              disabled={!draft.trim()}
-              className="flex size-11 shrink-0 items-center justify-center rounded-full bg-gold text-bg disabled:opacity-40"
+              aria-label={
+                hasDraft ? "Zapsat problém" : recording ? "Dokončit diktování" : "Nadiktovat problém"
+              }
+              aria-pressed={hasDraft ? undefined : recording}
+              disabled={transcribing}
+              className={`flex size-11 shrink-0 items-center justify-center rounded-full border-[1.5px] border-gold disabled:opacity-40 ${
+                recording ? "bg-bg text-gold" : "bg-gold text-bg"
+              }`}
             >
-              <ArrowUpIcon size={22} strokeWidth={1.8} />
+              {hasDraft ? (
+                <ArrowUpIcon size={22} strokeWidth={1.8} />
+              ) : (
+                <MicIcon size={22} strokeWidth={1.8} />
+              )}
             </button>
           </div>
         </form>
@@ -154,7 +209,7 @@ function IssueCard({ issue, onOpen }: { issue: Issue; onOpen: () => void }) {
       {issue.kyraNote && !resolved && (
         <span className="flex flex-col gap-1.5 rounded-[14px] border border-kyra-line bg-kyra-bg px-3.5 py-3">
           <span className="text-[11px] font-bold tracking-[2.4px] text-gold">KYRA</span>
-          <span className="font-serif text-[19px] leading-[1.3] font-medium">{issue.kyraNote}</span>
+          <span className="font-serif text-[19px] leading-[1.3] font-medium lining-nums">{issue.kyraNote}</span>
         </span>
       )}
     </button>
